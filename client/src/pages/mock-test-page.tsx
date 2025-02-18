@@ -32,7 +32,7 @@ export default function MockTestPage() {
     queryKey: [`/api/mock-tests/${testId}/questions`],
   });
 
-  // Set initial state when questions are loaded
+  // Initialize selected answers when questions are loaded
   useEffect(() => {
     if (questions.length > 0) {
       setSelectedAnswers(new Array(questions.length).fill(-1));
@@ -64,9 +64,9 @@ export default function MockTestPage() {
     return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
-  const handleAnswerSelect = (answer: number) => {
+  const handleAnswerSelect = (answer: string) => {
     const newAnswers = [...selectedAnswers];
-    newAnswers[currentQuestion] = answer;
+    newAnswers[currentQuestion] = parseInt(answer);
     setSelectedAnswers(newAnswers);
   };
 
@@ -171,8 +171,8 @@ export default function MockTestPage() {
         <CardContent className="p-6">
           <p className="text-lg mb-6">{currentQuestionData.text}</p>
           <RadioGroup
-            value={selectedAnswers[currentQuestion].toString()}
-            onValueChange={(value) => handleAnswerSelect(parseInt(value))}
+            value={selectedAnswers[currentQuestion]?.toString() ?? ""}
+            onValueChange={handleAnswerSelect}
           >
             {currentQuestionData.options.map((option, index) => (
               <div key={index} className="flex items-center space-x-2 mb-4">
