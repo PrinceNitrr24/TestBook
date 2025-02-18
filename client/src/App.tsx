@@ -15,13 +15,15 @@ function Router() {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <Switch>
-        <Route path="/auth" component={AuthPage} />
-        <ProtectedRoute path="/" component={HomePage} />
-        <ProtectedRoute path="/course/:id" component={CoursePage} />
-        <ProtectedRoute path="/mock-test/:id" component={MockTestPage} />
-        <Route component={NotFound} />
-      </Switch>
+      <main className="pt-16"> {/* Add padding for floating navbar */}
+        <Switch>
+          <Route path="/auth" component={AuthPage} />
+          <ProtectedRoute path="/" component={HomePage} />
+          <ProtectedRoute path="/course/:id" component={CoursePage} />
+          <ProtectedRoute path="/mock-test/:id" component={MockTestPage} />
+          <Route component={NotFound} />
+        </Switch>
+      </main>
     </div>
   );
 }
